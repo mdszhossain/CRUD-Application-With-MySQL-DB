@@ -1,0 +1,22 @@
+{
+  "name": "crud-application-with-mysql-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Md Shazzad Hossain",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@faker-js/faker": "^10.5.0",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "method-override": "^3.0.0",
+    "mysql2": "^3.22.5",
+    "nodemon": "^3.1.14",
+    "uuid": "^14.0.1"
+  }
+}
