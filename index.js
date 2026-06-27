@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const {v4: uuidv4} = require("uuid");
+const { faker } = require('@faker-js/faker');
 const mysql = require('mysql2');
 const methodOverride = require("method-override");
 const app = express();
@@ -13,5 +14,38 @@ app.use(express.static(path.join(__dirname, "/public/js")));
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'crud_app',
+  password: 'shazbrick110',
+});
+
+
+let createRandomUser = () => {
+  return [
+    faker.string.uuid(),
+    faker.internet.username(),
+    faker.internet.email(),
+    faker.internet.password(),
+  ];
+};
+
+let data = [];
+for(let i = 0; i < 10; i++) {
+  data[i] = createRandomUser();
+}
+
+try {
+  let q = "INSERT INTO users (id, username, email, password) VALUES ?";
+  connection.query(q, [data], (err, result) => {
+    if(err) throw err;
+    console.log(result);
+  });
+} catch(err) {
+  console.log("Database Error");
+  console.log(err);
+}
 
 app.listen(port, () => {console.log(`Listening at port: ${port}`)});
