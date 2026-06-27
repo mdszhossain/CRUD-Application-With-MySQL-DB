@@ -41,11 +41,16 @@ try {
   let q = "INSERT INTO users (id, username, email, password) VALUES ?";
   connection.query(q, [data], (err, result) => {
     if(err) throw err;
-    console.log(result);
   });
 } catch(err) {
   console.log("Database Error");
   console.log(err);
 }
+
+// endpoints
+// index route (users)
+app.get('/users', (req, res) => {
+  res.render("users.ejs", {data});
+});
 
 app.listen(port, () => {console.log(`Listening at port: ${port}`)});
