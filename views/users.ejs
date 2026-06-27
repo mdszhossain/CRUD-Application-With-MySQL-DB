@@ -7,39 +7,45 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1 class="users-list">USER LIST</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>username</th>
-                <th>email</th>
-                <th>edit</th>
-                <th>destroy</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for(let user of data) { %>
-                <tr>
-                    <td><%= user[0] %></td>
-                    <td><%= user[1] %></td>
-                    <td><%= user[2] %></td>
-                    <td>
-                        <form action="">
-                            <button id="edit-btn" class="user-btn">edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="">
-                            <button id="delete-btn" class="user-btn">delete</button>
-                        </form>
-                    </td>
-                </tr>
-            <% } %>
-        </tbody>
-    </table>
-    <form class="create-user-form" action="">
-        <button class="create-user-btn">create-user</button>
-    </form>
+    <main class="users-page-shell">
+        <section class="users-card">
+            <div class="users-header">
+                <div>
+                    <h1 class="users-list">User Directory</h1>
+                    <p class="users-subtitle">Manage account records in a clean and modern table layout.</p>
+                </div>
+                <a href="/newuser" class="create-user-btn">Create User</a>
+            </div>
+
+            <div class="table-container">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Edit</th>
+                            <th>Destroy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let user of result) { %>
+                            <tr>
+                                <td><%= user.id %></td>
+                                <td><%= user.username %></td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    <button id="edit-btn" class="user-btn secondary-btn">Edit</button>
+                                </td>
+                                <td>
+                                    <button id="delete-btn" class="user-btn danger-btn">Delete</button>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

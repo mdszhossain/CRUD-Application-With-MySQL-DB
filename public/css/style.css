@@ -1,67 +1,216 @@
 * {
     margin: 0;
     padding: 0;
-    border: "border-box";
+    box-sizing: border-box;
+}
+html, body {
+    min-height: 100%;
+}
+body {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #eef3ff;
+    color: #1f2a44;
 }
 .users-list {
     text-align: center;
-    font-size: 30px;
-    color: royalblue;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    color: #3b5bff;
+    margin: 0;
+    padding-bottom: 8px;
 }
 table, th, td {
-    border: 1px solid black;
     border-collapse: collapse;
-    font-size: 20px;
+    font-size: 16px;
 }
-table {
-    width: 90%;
-    margin: auto;
+.users-table {
+    width: 100%;
+    border-spacing: 0;
+    table-layout: fixed;
 }
-th, td {
-    padding: 10px;
+.users-table thead {
+    background: linear-gradient(90deg, #4f6cff 0%, #6f8eff 100%);
 }
-td {
-    text-align: center;
-    background-color: antiquewhite;
+.users-table th,
+.users-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid #e4eaf7;
 }
-th {
-    background-color: royalblue;
+.users-table th:nth-child(1),
+.users-table td:nth-child(1) {
+    width: 18%;
+}
+.users-table th:nth-child(2),
+.users-table td:nth-child(2) {
+    width: 20%;
+}
+.users-table th:nth-child(3),
+.users-table td:nth-child(3) {
+    width: 36%;
+}
+.users-table th:nth-child(4),
+.users-table td:nth-child(4),
+.users-table th:nth-child(5),
+.users-table td:nth-child(5) {
+    width: 13%;
+}
+.users-table td {
+    overflow-wrap: anywhere;
+}
+.users-table th {
     color: white;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+.users-table tbody tr {
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.users-table tbody tr:hover {
+    background: #f5f8ff;
+    transform: translateX(2px);
+}
+.users-table tbody tr:last-child td {
+    border-bottom: none;
 }
 .user-btn {
-    display: block;
-    width: 100%;
-    padding: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 90px;
+    padding: 8px 14px;
     border: none;
     color: white;
-    border-radius: 5px;
-}
-#edit-btn {
-    background-color: green;
-}
-#delete-btn {
-    background-color: red;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .user-btn:hover {
     cursor: pointer;
+    transform: translateY(-1px);
 }
-.create-user-form {
-    width: 10%;
-    margin: auto;
+.secondary-btn {
+    background: #4a8aeb;
+}
+.danger-btn {
+    background: #ff6b6b;
+}
+.users-page-shell {
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #eef3ff 0%, #ffffff 100%);
+}
+.users-card {
+    width: 90vw;
+    max-width: 90vw;
+    padding: 30px 34px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 28px;
+    box-shadow: 0 28px 70px rgba(52, 84, 132, 0.12);
+    border: 1px solid rgba(99, 132, 255, 0.12);
+}
+.users-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+.users-subtitle {
+    margin-top: 8px;
+    color: #5f6f91;
+    font-size: 15px;
+}
+.table-container {
+    overflow-x: hidden;
 }
 .create-user-btn {
-    display: block;
-    margin: auto;
-    padding: 10px;
-    border: 0;
-    background-color: royalblue;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #3b5bff 0%, #5f82ff 100%);
     color: white;
-    border-radius: 5px;
-    margin-top: 20px;
-    font-size: 20px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .create-user-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 30px rgba(59, 91, 255, 0.18);
+}
+
+/* New user form styling */
+.page-shell {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #eef3ff 0%, #ffffff 100%);
+    padding: 40px 20px;
+}
+.form-card {
+    width: min(520px, 100%);
+    padding: 36px 40px;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(52, 84, 132, 0.12);
+    border: 1px solid rgba(99, 132, 255, 0.14);
+}
+.form-subtitle {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 30px;
+    color: #5f6f91;
+    font-size: 16px;
+}
+.user-form {
+    display: grid;
+    gap: 22px;
+}
+.form-group {
+    display: grid;
+    gap: 10px;
+}
+.form-group label {
+    font-weight: 600;
+    color: #1f3168;
+}
+.form-group input {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 16px;
+    border: 1px solid #d7def2;
+    background: #f8faff;
+    font-size: 16px;
+    color: #1f2a44;
+}
+.form-group input::placeholder {
+    color: #a9b3cf;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: #5e7cff;
+    box-shadow: 0 0 0 4px rgba(94, 124, 255, 0.12);
+}
+.submit-button {
+    width: 100%;
+    padding: 16px 18px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #3b5bff 0%, #5f82ff 100%);
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.submit-button:hover {
     cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 18px 30px rgba(59, 91, 255, 0.18);
 }

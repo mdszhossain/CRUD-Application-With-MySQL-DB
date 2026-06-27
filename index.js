@@ -23,34 +23,64 @@ const connection = mysql.createConnection({
 });
 
 
-let createRandomUser = () => {
-  return [
-    faker.string.uuid(),
-    faker.internet.username(),
-    faker.internet.email(),
-    faker.internet.password(),
-  ];
-};
+// let createRandomUser = () => {
+//   return [
+//     faker.string.uuid(),
+//     faker.internet.username(),
+//     faker.internet.email(),
+//     faker.internet.password(),
+//   ];
+// };
 
-let data = [];
-for(let i = 0; i < 10; i++) {
-  data[i] = createRandomUser();
-}
+// let data = [];
+// for(let i = 0; i < 10; i++) {
+//   data[i] = createRandomUser();
+// }
 
-try {
-  let q = "INSERT INTO users (id, username, email, password) VALUES ?";
-  connection.query(q, [data], (err, result) => {
-    if(err) throw err;
-  });
-} catch(err) {
-  console.log("Database Error");
-  console.log(err);
-}
+// try {
+//   let q = "INSERT INTO users (id, username, email, password) VALUES ?";
+//   connection.query(q, [data], (err, result) => {
+//     if(err) throw err;
+//   });
+// } catch(err) {
+//   console.log("Database Error");
+//   console.log(err);
+// }
 
 // endpoints
 // index route (users)
 app.get('/users', (req, res) => {
-  res.render("users.ejs", {data});
+  try {
+    let q = "SELECT * FROM users";
+    connection.query(q, (err, result) => {
+      if(err) throw err;
+      // res.send(result);
+      res.render("users.ejs", {result});
+    });
+  } catch(err) {
+    console.log("Database Error");
+    console.log(err);
+  }
+});
+
+app.get("/newuser", (req, res) => {
+  res.render("newuser.ejs");
+});
+
+app.post("/users", (req, res) => {
+  let id = uuidv4()
+  let {username, email, password} = req.body;
+  let user = [id, username, email, password];
+  try {
+    let q = "INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)";
+    connection.query(q, user, (err, result) => {
+      if(err) throw err;
+      res.redirect("/users");
+    });
+  } catch(err) {
+    console.log("Database Error");
+    console.log(err);
+  }
 });
 
 app.listen(port, () => {console.log(`Listening at port: ${port}`)});
