@@ -35,10 +35,12 @@
                                 <td><%= user.username %></td>
                                 <td><%= user.email %></td>
                                 <td>
-                                    <button id="edit-btn" class="user-btn secondary-btn">Edit</button>
+                                    <a href="/users/<%= user.id %>/update" id="edit-btn" class="user-btn secondary-btn">Edit</a>
                                 </td>
                                 <td>
-                                    <button id="delete-btn" class="user-btn danger-btn">Delete</button>
+                                    <form method="POST" action="http://localhost:8080/users/<%= user.id %>?_method=DELETE">
+                                        <button id="delete-btn" class="user-btn danger-btn">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         <% } %>

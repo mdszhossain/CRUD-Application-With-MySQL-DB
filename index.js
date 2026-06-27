@@ -63,10 +63,12 @@ app.get('/users', (req, res) => {
   }
 });
 
+// newuser route
 app.get("/newuser", (req, res) => {
   res.render("newuser.ejs");
 });
 
+// updating new user to database
 app.post("/users", (req, res) => {
   let id = uuidv4()
   let {username, email, password} = req.body;
@@ -77,6 +79,69 @@ app.post("/users", (req, res) => {
       if(err) throw err;
       res.redirect("/users");
     });
+  } catch(err) {
+    console.log("Database Error");
+    console.log(err);
+  }
+});
+
+// update user information
+app.get("/users/:id/update", (req, res) => {
+  let {id} = req.params;
+  try {
+    let q = `SELECT * FROM users WHERE id = '${id}'`;
+    connection.query(q, (err, result) => {
+      if(err) throw err;
+      let Result = result[0];
+      // res.send(Result);
+      res.render("update.ejs", {Result})
+    });
+  } catch(err) {
+    console.log("Database Error");
+    console.log(err);
+  }
+}); 
+
+app.patch("/users/:id", (req, res) => {
+  let {id} = req.params;
+  let {username: newUsername, email: newEmail, password: currentPassword} = req.body;
+  try {
+    let q = `SELECT  * FROM users WHERE id = '${id}'`;
+    connection.query(q, (err, result) => {
+      let Result = result[0];
+      // res.send(Result);
+      // console.log(newUsername, newEmail);
+      if(Result.password === currentPassword) {
+        try {
+          let query = `UPDATE users SET username = '${newUsername}', email = '${newEmail}' WHERE id = '${id}'`;
+          connection.query(query, (err, result) => {
+            if(err) throw err;
+            res.redirect("/users");
+          });
+        } catch(err) {
+          console.log("Database Error");
+          console.log(err);
+        }
+      } else {
+        res.render("error.ejs");
+      }
+    });
+  } catch(err) {
+    console.log("Database Error");
+    console.log(err);
+  }
+});
+
+
+// destroy route
+app.delete("/users/:id", (req, res) => {
+  let {id} = req.params;
+  try {
+    let q = `DELETE FROM users WHERE id = '${id}'`;
+    connection.query(q, (err, result) => {
+      if(err) throw err;
+      res.redirect("/users");
+    })
   } catch(err) {
     console.log("Database Error");
     console.log(err);

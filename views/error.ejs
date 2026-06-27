@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+      .error-code { text-align:center; font-size:72px; color:#ff6b6b; margin-bottom:8px }
+      .error-message { text-align:center; color:#334155; margin-bottom:18px }
+      .error-actions { display:flex; justify-content:center; gap:12px }
+      .secondary-link { padding:12px 18px; border-radius:12px; background:#f3f4f6; color:#334155; text-decoration:none; font-weight:600 }
+    </style>
+</head>
+<body>
+    <main class="page-shell">
+        <section class="form-card">
+            <div style="text-align:center;">
+                <div class="error-code">500</div>
+                <h1 class="users-list">Oops — something went wrong</h1>
+                <p class="error-message">An unexpected error occurred while processing your request.</p>
+                <div class="error-actions">
+                    <a href="/users" class="create-user-btn">Back to Users</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
