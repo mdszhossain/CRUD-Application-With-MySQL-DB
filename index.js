@@ -23,38 +23,12 @@ const connection = mysql.createConnection({
 });
 
 
-// let createRandomUser = () => {
-//   return [
-//     faker.string.uuid(),
-//     faker.internet.username(),
-//     faker.internet.email(),
-//     faker.internet.password(),
-//   ];
-// };
 
-// let data = [];
-// for(let i = 0; i < 10; i++) {
-//   data[i] = createRandomUser();
-// }
-
-// try {
-//   let q = "INSERT INTO users (id, username, email, password) VALUES ?";
-//   connection.query(q, [data], (err, result) => {
-//     if(err) throw err;
-//   });
-// } catch(err) {
-//   console.log("Database Error");
-//   console.log(err);
-// }
-
-// endpoints
-// index route (users)
 app.get('/users', (req, res) => {
   try {
     let q = "SELECT * FROM users";
     connection.query(q, (err, result) => {
       if(err) throw err;
-      // res.send(result);
       res.render("users.ejs", {result});
     });
   } catch(err) {
@@ -93,7 +67,6 @@ app.get("/users/:id/update", (req, res) => {
     connection.query(q, (err, result) => {
       if(err) throw err;
       let Result = result[0];
-      // res.send(Result);
       res.render("update.ejs", {Result})
     });
   } catch(err) {
@@ -109,8 +82,6 @@ app.patch("/users/:id", (req, res) => {
     let q = `SELECT  * FROM users WHERE id = '${id}'`;
     connection.query(q, (err, result) => {
       let Result = result[0];
-      // res.send(Result);
-      // console.log(newUsername, newEmail);
       if(Result.password === currentPassword) {
         try {
           let query = `UPDATE users SET username = '${newUsername}', email = '${newEmail}' WHERE id = '${id}'`;
